@@ -5,6 +5,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import StatsIllustrationSrc from "images/stats-illustration.svg";
+import TailorSrc from "images/tailor.jpg"
 import { ReactComponent as SvgDotPattern } from "images/dot-pattern.svg";
 
 const Container = tw.div`relative`;
@@ -21,8 +22,8 @@ const Image = styled.div(props => [
   tw`rounded bg-contain bg-no-repeat bg-center h-full`
 ]);
 const TextContent = tw.div`lg:py-8 text-center md:text-left`;
-
-const Subheading = tw(SubheadingBase)`text-center md:text-left`;
+//constSubHeading buat ganti warna tulisan pada subhead
+const Subheading = tw(SubheadingBase)`text-center md:text-left text-[#B8860B]`;
 const Heading = tw(
   SectionHeading
 )`mt-4 font-black text-left text-3xl sm:text-4xl lg:text-5xl text-center md:text-left leading-tight`;
@@ -33,23 +34,24 @@ const Statistic = tw.div`text-left sm:inline-block sm:mr-12 last:mr-0 mt-4`;
 const Value = tw.div`font-bold text-lg sm:text-xl lg:text-2xl text-secondary-500 tracking-wide`;
 const Key = tw.div`font-medium text-primary-700`;
 
-const PrimaryButton = tw(PrimaryButtonBase)`mt-8 md:mt-10 text-sm inline-block mx-auto md:mx-0`;
+const PrimaryButton = tw(PrimaryButtonBase)`mt-8 md:mt-10 text-sm inline-block mx-auto md:mx-0 bg-[#333333] hover:bg-[#666666]`;
 
 const DecoratorBlob = styled(SvgDotPattern)(props => [
   tw`w-20 h-20 absolute right-0 bottom-0 transform translate-x-1/2 translate-y-1/2 fill-current text-primary-500 -z-10`
 ]);
-
+//TwoColSingleFeatureWithStats2.js untuk mengganti section MainFeature2
+//sudah ku ganti di subheading, heading, and description
 export default ({
-  subheading = "Our Track Record",
+  subheading = "Celebrating Years of Fashion Excellence",
   heading = (
     <>
-      We have been doing this <wbr /> since <span tw="text-primary-500">1999.</span>
+      We have been passionately crafting fashion experiences <wbr /> since <span tw="text-[#B8860B]">2012.</span>
     </>
   ),
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  description = "At Trend Era, we believe that fashion is a personal journey. Since our inception, we have dedicated ourselves to curating a diverse collection of clothing, bags, and hats that cater to every individual's style. Our mission is to provide quality apparel that not only looks good but feels good, ensuring you express your personality with confidence. Join us in redefining your wardrobe, one trend at a time.",
   primaryButtonText = "Learn More",
   primaryButtonUrl = "https://timerse.com",
-  imageSrc = StatsIllustrationSrc,
+  imageSrc = TailorSrc,
   imageCss = null,
   imageContainerCss = null,
   imageDecoratorBlob = false,
@@ -62,16 +64,16 @@ export default ({
   //Change the statistics variable as you like, add or delete objects
   const defaultStatistics = [
     {
-      key: "Clients",
-      value: "2282+"
+      key: "Products Sold",
+      value: "10,000+"
     },
     {
-      key: "Projects",
-      value: "3891+"
+      key: "Positive Reviews",
+      value: "6000+"
     },
     {
-      key: "Awards",
-      value: "1000+"
+      key: "Years in Business",
+      value: "10+"
     }
   ];
 

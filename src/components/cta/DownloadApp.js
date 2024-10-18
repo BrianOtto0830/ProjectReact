@@ -3,13 +3,16 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import mockupImageSrc from "images/app-mockup.png"
+import mockupHpSrc from "images/T.E_mockup_hp-removebg.png"
 import { ReactComponent as SvgDecoratorBlob1 } from "images/svg-decorator-blob-9.svg";
 import { ContentWithPaddingXl, Container as ContainerBase } from "components/misc/Layouts";
 import { SectionHeading, Subheading as SubheadingBase } from "components/misc/Headings.js";
 import appleIconImageSrc from "images/apple-icon.png";
 import googlePlayIconImageSrc from "images/google-play-icon.png"
 
-const Container = tw(ContainerBase)`bg-gray-900 -mx-8`
+//ganti container pada download app js disini
+const Container = tw(ContainerBase)`bg-[#006666] -mx-8`
+
 const Content = tw(ContentWithPaddingXl)``
 const Row = tw.div`px-8 flex items-center relative z-10 flex-col lg:flex-row text-center lg:text-left justify-center`;
 
@@ -44,7 +47,7 @@ export default ({
   link2Url = "http://play.google.com",
   link2IconSrc = googlePlayIconImageSrc,
   pushDownFooter = false,
-  imageSrc = mockupImageSrc,
+  imageSrc = mockupHpSrc,
 }) => {
   return (
     <Container css={pushDownFooter && tw`mb-20 lg:mb-24`}>
@@ -65,7 +68,7 @@ export default ({
             </LinksContainer>
           </TextContainer>
           <ImageContainer>
-            <img src={imageSrc} alt="" tw="w-64"/>
+            <img src={imageSrc} alt="" tw="w-full"/>
           </ImageContainer>
         </Row>
         <DecoratorBlobContainer>

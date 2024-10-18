@@ -10,13 +10,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { formatPrice } from "helpers/helpers";
 import { FaStar, FaStarHalf, FaCheck } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useProductsContext } from "context/product_context";
+import { data } from "helpers/utils";
 
 const DetailProduct = () => {
   const { id } = useParams();
   const { addItem, items, updateItemQuantity } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [product, setProduct] = useState({});
+  //tambahan context dari product_context.js v
+  const {product, getProductById, setProduct} = useProductsContext();
   const [showModal, setShowModal] = useState(false);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -58,20 +61,26 @@ const DetailProduct = () => {
 
   useEffect(() => {
     // Your code here
+    // getProductById(id);
+    const findProduct = data.find((item) => item.id.toString() === id);
+    console.log(`findProduct`, findProduct);
+    setProduct(findProduct);
   }, [id]);
+  console.log(product);
+  console.log(data);
 
   const handleChangePrice = () => {
-    return product.price * quantity;
+    return product?.price * quantity;
   };
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(Math.max(1, Math.min(10, newQuantity))); // Ensure quantity is within the allowed range
   };
 
-  useEffect(() => {
-    const updatedPrice = handleChangePrice();
-    setProduct((prevProduct) => ({ ...prevProduct, updatedPrice }));
-  }, [quantity, product.price]);
+  // useEffect(() => {
+  //   const updatedPrice = handleChangePrice();
+  //   setProduct((prevProduct) => ({ ...prevProduct, updatedPrice }));
+  // }, [quantity, product.price]);
 
   return (
     <AnimationRevealPage>
@@ -87,21 +96,22 @@ const DetailProduct = () => {
               >
                 Back to products
               </button>
-              {Array.isArray(product.images) && product.images.length > 0 && (
+              {Array.isArray(product?.images) && product?.images?.length > 0 && (
                 <>
                   <ProductImage
-                    src={product.images[mainImageIndex].url}
-                    alt={product.name}
+                    src={product?.images[mainImageIndex]}
+                    alt={product?.title}
                   />
                 </>
               )}
-              {Array.isArray(product.images) && product.images.length > 1 && (
+              {Array.isArray(product?.images) && product?.images?.length > 1 && (
                 <div className="grid grid-cols-5 sm:gap-2 mt-4 ">
-                  {product.images.map((image, index) => (
+                  {product?.images?.map((image, index) => (
                     <img
                       key={index}
-                      src={image.url}
-                      alt={`${product.name} - ${index + 1}`}
+                      //tambahin url kalo buat backend
+                      src={image}
+                      alt={`${product.title} - ${index + 1}`}
                       className={`h-20 w-20 rounded cursor-pointer ${
                         index === mainImageIndex
                           ? "border-2 border-red-500"
@@ -115,19 +125,19 @@ const DetailProduct = () => {
             </div>
 
             <ProductInfo>
-              <Title>Nama Product </Title>
+              <Title>{product.title} </Title>
               <RatingReviews>
                 <div className="flex items-center justify-center md:justify-normal">
-                  {product.stars}
+                  {product?.stars}
                   <span className=" flex mx-2">
                     {[...Array(5)].map((_, index) => {
                       const starValue = index + 1;
                       const isHalfStar =
-                        starValue - 0.5 === Math.floor(product.stars);
+                        starValue - 0.5 === Math.floor(product?.stars);
 
                       return (
                         <span key={index} className="my-auto ">
-                          {starValue <= product.stars ? (
+                          {starValue <= product?.stars ? (
                             isHalfStar ? (
                               <FaStarHalf style={{ color: "#fbbf24" }} />
                             ) : (
@@ -152,9 +162,9 @@ const DetailProduct = () => {
 
                 <div className="flex">
                   <p className="my-auto mr-4">Colors : </p>
-                  {Array.isArray(product.colors) && (
+                  {Array.isArray(product?.colors) && (
                     <div className="flex space-x-2">
-                      {product.colors.map((color, index) => (
+                      {product?.colors?.map((color, index) => (
                         <div
                           key={index}
                           className={`relative w-8 h-8 rounded-full cursor-pointer border-2 ${
@@ -203,7 +213,7 @@ const DetailProduct = () => {
               <h2 tw="text-2xl font-semibold mb-4">
                 Are you sure want add this item to cart?
               </h2>
-              <p>Name : {selectedItem.name}</p>
+              <p>Name : {selectedItem.title}</p>
               <p>Quantity : {quantity}</p>
               <div className="flex items-center justify-center">
                 <p className="my-auto mr-3">Color : </p>

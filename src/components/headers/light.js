@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import tw from "twin.macro";
 import styled from "styled-components";
@@ -7,10 +7,12 @@ import { IoCart } from "react-icons/io5";
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
 
 import logo from "../../images/cek-toko-sebelah.png";
+import trendlogo from "../../images/Trend_Logo.png"
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { useCart } from "react-use-cart";
 import { Link } from "react-router-dom";
+import { useAuth } from "context/AuthProvider.js";
 
 const Header = tw.header`
   flex justify-between items-center
@@ -27,11 +29,11 @@ export const NavLink = tw.a`
   font-semibold tracking-wide transition duration-300
   pb-1 border-b-2 border-transparent hover:border-primary-500 hocus:text-primary-500
 `;
-
+//ganti warna login button disini "PrimaryLink pada light.js"
 export const PrimaryLink = tw(NavLink)`
   lg:mx-0
-  px-8 py-3 rounded bg-primary-500 text-gray-100
-  hocus:bg-primary-700 hocus:text-gray-200 focus:shadow-outline
+  px-8 py-3 rounded bg-[#333333] text-gray-100
+  hocus:bg-[#B0B0B0] hocus:text-gray-200 focus:shadow-outline
   border-b-0
 `;
 
@@ -91,12 +93,20 @@ export default ({
    */
 
   const { totalItems } = useCart();
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const {logout} = useAuth();
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  }
+  //panggil logout
+  
   //  TODO
   //  1.Panggil local storage user simpan didalam variabel user
   //  2.Buat button logout dan gunakan fungsi logout dari AuthProvider
   /*  3.Tambahkan Ternary Operator untuk link login atau button logout tergantung dari user localstorage */
-
+  
+  
   const defaultLinks = [
     <NavLinks key={1}>
       <NavLink>
@@ -122,10 +132,27 @@ export default ({
           </CartContainer>
         </Link>
       </NavLink>
-
-      <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} href="/#">
-        <Link to={"/login"}>Login</Link>
-      </PrimaryLink>
+      {/* tambahkan jika tidak ada user di localstorage, maka button jadi login, jika ada maka logout */}
+      {user ? (
+        <div className="mr-4 pb-1 my-2 relative z-20">
+          <p onClick={handleDropdownToggle} className="cursor-pointer">
+            {user.name}
+          </p>
+          {isDropdownOpen && (
+            <div className="absolute top-full right-0 mt-1 bg-white border rounded-md shadow-md">
+              <button onClick={logout}
+              className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left">
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} href="/#">
+          <Link to={"/login"}>Login</Link>
+        </PrimaryLink>
+      )}
+      
     </NavLinks>,
   ];
 
@@ -135,7 +162,7 @@ export default ({
 
   const defaultLogoLink = (
     <LogoLink href="/">
-      <img src={logo} alt="logo" />
+      <img src={trendlogo} alt="trendlogo" />
     </LogoLink>
   );
 

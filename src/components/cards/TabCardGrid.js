@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useProductsContext } from "context/product_context";
+import { data } from "helpers/utils";
 
 const HeaderRow = tw.div`flex justify-between items-center flex-col xl:flex-row`;
 const Header = tw(SectionHeading)``;
@@ -28,17 +29,17 @@ const ModalContainer = tw.div`fixed inset-0 flex items-center justify-center z-5
 const CancelButton = tw(
   PrimaryButtonBase
 )`text-sm mt-4 bg-red-600 hocus:bg-red-700 ml-5`;
-
+//TabControl pada props.active untuk mengubah warna tab pada grid product ada di TabCardGrid.js
 const TabControl = styled.div`
   ${tw`cursor-pointer px-6 py-3 mt-2 sm:mt-0 sm:mr-2 last:mr-0 text-gray-600 font-medium rounded-sm transition duration-300 text-sm sm:text-base w-1/2 sm:w-auto text-center`}
   &:hover {
     ${tw`bg-gray-300 text-gray-700`}
   }
-  ${(props) => props.active && tw`bg-primary-500! text-gray-100!`}
+  ${(props) => props.active && tw`bg-gray-500! text-gray-100!`}
   }
 `;
-
-const BuyNowButton = tw(PrimaryButtonBase)`text-sm cursor-pointer`;
+//ganti tombol buynow pada modul yang muncul saat kita klik buynow pada item di TabCardGrid.js
+const BuyNowButton = tw(PrimaryButtonBase)`text-sm cursor-pointer bg-green-500`;
 
 const TabContent = tw(
   motion.div
@@ -47,10 +48,10 @@ const CardContainer = tw.div`mt-10 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 sm:pr-10 md
 const Card = tw(
   motion.a
 )`bg-gray-200 rounded-b block max-w-xs mx-auto sm:max-w-none sm:mx-0 relative`;
-
+//ganti warna tombol buy now di CardButton pada TabCardGrid.js pada Primary ButtonBase
 const CardButton = tw(
   PrimaryButtonBase
-)`text-sm cursor-pointer absolute bottom-0 left-0 right-0 mx-auto`;
+)`text-sm cursor-pointer absolute bottom-0 left-0 right-0 mx-auto bg-green-500 hover:bg-green-700`;
 const CardImageContainer = styled.div`
   ${(props) =>
     css`
@@ -80,31 +81,27 @@ const DecoratorBlob2 = styled(SvgDecoratorBlob2)`
   ${tw`pointer-events-none -z-20 absolute left-0 bottom-0 h-80 w-80 opacity-15 transform -translate-x-2/3 text-primary-500`}
 `;
 
-export default ({ heading = "Checkout the Menu" }) => {
+export default ({ heading = "Checkout the Products" }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [tabsKeys, setTabsKeys] = useState([
     "Best Sellers",
-    "Main",
-    "Soup",
-    "Desserts",
+    "Dresses",
+    "Shirts",
   ]);
   const [activeTab, setActiveTab] = useState("Best Sellers");
   const { addItem, updateItemQuantity, items } = useCart();
-  const { products } = useProductsContext();
-  const getRandomCards = () => {
-    const cards = products;
-    return cards.sort(() => Math.random() - 0.5);
-  };
+  // const { products } = useProductsContext();
+  const products = data;
 
   const tabs = {
     "Best Sellers": products
       .sort((a, b) => b.stars - a.stars) // Sort by stars in descending order
       .slice(0, 8), // Get the top 8 items
-    Main: getRandomCards(), // Perbaharui filter berdasarkan Kaos
-    Soup: getRandomCards(), // Perbaharui filter berdasarkan Sepatu
-    Desserts: getRandomCards(), // Perbaharui filter berdasarkan Jaket
+
+    Dresses: products.filter((product) => product.category === "Dresses"),
+    Shirts: products.filter((product) => product.category === "Shirts"), 
   };
 
   const openModal = (item) => {
@@ -204,7 +201,7 @@ export default ({ heading = "Checkout the Menu" }) => {
                 >
                   <Link to={`/detail-product/${card.id}`}>
                     <CardImageContainer
-                      image={card.image}
+                      image={card.imageSrc}
                       className="flex items-center justify-center"
                     />
                   </Link>

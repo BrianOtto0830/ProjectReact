@@ -7,6 +7,10 @@ import { SectionHeading as Heading, Subheading as SubheadingBase } from "compone
 import { ReactComponent as SvgDecoratorBlob1 } from "images/svg-decorator-blob-7.svg";
 import { ReactComponent as SvgDecoratorBlob2 } from "images/svg-decorator-blob-8.svg";
 
+import user1 from "images/usertestimoni1.jpg"
+import user2 from "images/usertestimoni2.jpg"
+import user3 from "images/usertestimoni3.jpg"
+
 const Subheading = tw(SubheadingBase)`text-center`;
 const Testimonials = tw.div`flex flex-col lg:flex-row items-center lg:items-stretch`;
 const TestimonialContainer = tw.div`mt-16 lg:w-1/3`;
@@ -28,11 +32,25 @@ export default ({
   testimonials = [
     {
       imageSrc:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.25&w=512&h=512&q=80",
+        "https://i.pinimg.com/enabled_hi/564x/ae/e2/a6/aee2a698141c1d99fee8551e0185257a.jpg",
       quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
+        "Shopping at Trend Era was a fantastic experience! The quality of the clothes is exceptional, and the customer service was very helpful. I will definitely shop again!",
       customerName: "Charlotte Hale"
-    }
+    },
+    {
+      imageSrc:
+        "https://i.pinimg.com/enabled_hi/564x/2d/3f/aa/2d3faaec52fbda21fcdf790f8d3cbcbb.jpg",
+      quote:
+        "I love the trendy styles at Trend Era! The website is easy to navigate, and I found everything I needed for my wardrobe. Highly recommended!",
+      customerName: "Evelyn Thompson"
+    },
+    {
+      imageSrc:
+        "https://i.pinimg.com/enabled_hi/564x/12/75/40/127540404fd8f8b0e423a8e599245701.jpg",
+      quote:
+        "Trend Era offers the best accessories! I purchased a bag and a hat, and they both exceeded my expectations. Excellent quality and fast shipping.",
+      customerName: "John Doe"
+    },
   ]
 }) => {
   return (

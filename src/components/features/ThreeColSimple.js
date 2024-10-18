@@ -37,9 +37,9 @@ const Card = styled.a`
   .description {
     ${tw`mt-4 text-sm font-medium text-secondary-300`}
   }
-
+//link pada ThreeColSimple.js untuk mengubah warna dari link "Lear more" pada features
   .link {
-    ${tw`mt-auto inline-flex items-center pt-5 text-sm font-bold text-primary-300 leading-none hocus:text-primary-900 transition duration-300`}
+    ${tw`mt-auto inline-flex items-center pt-5 text-sm font-bold text-gray-700 leading-none hocus:text-gray-500 transition duration-300`}
     .icon {
       ${tw`ml-2 w-4`}
     }
@@ -61,13 +61,13 @@ export default ({
     {
       imageSrc: SupportIconImage,
       title: "24/7 Support",
-      description: "Lorem ipsum donor amet siti ceali placeholder text",
+      description: "Our customer service team is here to assist you anytime, anywhere, with your orders or questions.",
       url: "https://google.com"
     },
     {
       imageSrc: CustomizeIconImage,
-      title: "Customizable",
-      description: "Lorem ipsum donor amet siti ceali placeholder text",
+      title: "Trendy Collections",
+      description: "Explore our wide range of customizable and trendy styles, handpicked to match your personal fashion preferences.",
       url: "https://reddit.com"
     }
   ],
